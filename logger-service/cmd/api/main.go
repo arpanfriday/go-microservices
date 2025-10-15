@@ -2,7 +2,10 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
+	"log-service/data"
+	"net/http"
 	"time"
 
 	"go.mongodb.org/mongo-driver/mongo"
@@ -19,6 +22,7 @@ const (
 var client *mongo.Client
 
 type Config struct {
+	Models data.Models
 }
 
 func main() {
@@ -40,6 +44,33 @@ func main() {
 			panic(err)
 		}
 	}()
+
+	app := Config{
+		Models: data.New(client),
+	}
+
+	// start web server
+	// go app.serve()
+	log.Println("starting service on port ", webport)
+	srv := http.Server{
+		Addr:    fmt.Sprintf(":%s", webport),
+		Handler: app.routes(),
+	}
+
+	if err := srv.ListenAndServe(); err != nil {
+		log.Panic(err)
+	}
+}
+
+func (app *Config) serve() {
+	srv := http.Server{
+		Addr:    fmt.Sprintf(":%s", webport),
+		Handler: app.routes(),
+	}
+
+	if err := srv.ListenAndServe(); err != nil {
+		log.Panic(err)
+	}
 }
 
 func connectToMongo() (*mongo.Client, error) {
@@ -55,5 +86,6 @@ func connectToMongo() (*mongo.Client, error) {
 		log.Println("Error connecting: ", err)
 		return nil, err
 	}
+	log.Println("Connected to Mongo")
 	return c, nil
 }
