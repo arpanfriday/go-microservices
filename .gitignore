@@ -2,6 +2,7 @@ authentication-service/authApp
 broker-service/brokerApp
 front-end/frontApp
 logger-service/loggerServiceApp
+mail-service/mailerApp
 project/db-data
 .DS_Store
 *.DS_Store
