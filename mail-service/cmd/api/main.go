@@ -16,7 +16,7 @@ const webPort = "80"
 
 func main() {
 	app := Config{Mailer: createMail()}
-	log.Panicln("Starting mail service on web port: ", webPort)
+	log.Println("Starting mail service on web port: ", webPort)
 
 	srv := http.Server{
 		Addr:    fmt.Sprintf(":%s", webPort),

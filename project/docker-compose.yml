@@ -30,14 +30,14 @@ services:
       mode: replicated
       replicas: 1
     environment:
-      - MAIL_DOMAIN=localhost
-      - MAIL_HOST=mailhog
-      - MAIL_PORT=1025
-      - MAIL_ENCRYPTION=none
-      - MAIL_USERNAME=""
-      - MAIL_PASSWORD=""
-      - FROM_NAME="Sony Heys"
-      - FROM_ADDR=hello@example.com
+      MAIL_DOMAIN: localhost
+      MAIL_HOST: mailhog
+      MAIL_PORT: 1025
+      MAIL_ENCRYPTION: none
+      MAIL_USERNAME: ""
+      MAIL_PASSWORD: ""
+      FROM_NAME: "Sony Heys"
+      FROM_ADDR: hello@example.com
 
   authentication-service:
     build:
