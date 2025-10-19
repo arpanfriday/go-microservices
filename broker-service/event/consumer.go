@@ -11,8 +11,8 @@ import (
 )
 
 type Consumer struct {
-	conn      *amqp.Connection
-	queueName string
+	conn *amqp.Connection
+	// queueName string
 }
 
 func NewConsumer(conn *amqp.Connection) (Consumer, error) {
@@ -56,8 +56,7 @@ func (consumer *Consumer) Listen(topics []string) error {
 	}
 
 	for _, s := range topics {
-		// TODO check why "logs" in the below line resilved the error
-		ch.QueueBind(q.Name, s, "logs_topic", false, nil)
+		err = ch.QueueBind(q.Name, s, "logs_topic", false, nil)
 		if err != nil {
 			log.Println("error3 from listen:::", err)
 			return err
