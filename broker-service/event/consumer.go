@@ -3,6 +3,7 @@ package event
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 
@@ -79,7 +80,7 @@ func (consumer *Consumer) Listen(topics []string) error {
 		}
 	}()
 
-	log.Printf("waiting for message [Exchange, Queue] [logs_topic, %s]\n", q.Name)
+	fmt.Printf("waiting for message [Exchange, Queue] [logs_topic, %s]\n", q.Name)
 	<-forever
 
 	return nil
@@ -114,7 +115,6 @@ func logEvent(payload Payload) any {
 	request.Header.Set("Content-Type", "application/json")
 	client := http.Client{}
 
-	log.Println("sending payload to logger service...")
 	response, err := client.Do(request)
 	if err != nil {
 		return err
