@@ -21,8 +21,15 @@
       "path": "mail-service"
     },
     {
+      "name": "listener-service",
+      "path": "listener-service"
+    },
+    {
       "name": "project",
       "path": "project"
     }
-  ]
+  ],
+  "settings": {
+    "todo-tree.tree.showBadges": true
+  }
 }
