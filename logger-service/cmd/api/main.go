@@ -51,9 +51,12 @@ func main() {
 		Models: data.New(client),
 	}
 
-	// Register the RPC server
+	// Register the RPC server and Listen
 	err = rpc.Register(new(RPCServer))
 	go app.rpcListen()
+
+	// Listen for gRPC connection
+	go app.grpcListen()
 
 	// start web server
 	// go app.serve()
