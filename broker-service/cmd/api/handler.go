@@ -7,6 +7,7 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"log"
 	"net/http"
 	"net/rpc"
 	"time"
@@ -159,7 +160,7 @@ func (app *Config) sendMail(w http.ResponseWriter, mail MailPayload) {
 	defer response.Body.Close()
 
 	//make sure to get back the right status code
-
+	log.Println("response ::: ", response)
 	if response.StatusCode != http.StatusAccepted {
 		app.errorJson(w, errors.New("error calling mail service"))
 		return

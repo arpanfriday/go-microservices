@@ -47,12 +47,12 @@ services:
       FROM_ADDR: hello@example.com
 
   rabbitmq:
-    image: rabbitmq:3.9-alpine
+    image: "rabbitmq:3.9-alpine"
     deploy:
       mode: global
 
   mailhog:
-    image: "mailhog/mailhog:latest"
+    image: "albertsai/mailhog:arm64"
     ports:
       - "1025:1025"
       - "8025:8025"
