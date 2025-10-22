@@ -1,10 +1,14 @@
 version: "3"
 
 services:
+  front-end:
+    image: arpanmaity/front-end:1.0.0
+    deploy:
+      mode: replicated
+      replicas: 1
+
   broker-service:
-    image: arpanmaity/broker-service:1.0.0
-    ports:
-      - "8080:80"
+    image: arpanmaity/broker-service:1.0.2
     deploy:
       mode: replicated
       replicas: 1
