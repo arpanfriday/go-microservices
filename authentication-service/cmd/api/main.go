@@ -21,8 +21,7 @@ const maxRetries = 10
 var retries int64
 
 type Config struct {
-	DB     *sql.DB
-	Models data.Models
+	Repo data.Repository
 }
 
 func main() {
@@ -35,10 +34,7 @@ func main() {
 	}
 
 	// Setup config
-	app := Config{
-		DB:     conn,
-		Models: data.New(conn),
-	}
+	app := Config{}
 
 	srv := http.Server{
 		Addr:    fmt.Sprintf(":%s", webPort),
@@ -85,4 +81,9 @@ func connectToDB() *sql.DB {
 		time.Sleep(waitTillRetry * time.Second)
 		continue
 	}
+}
+
+func (app *Config) setupRepo(conn *sql.DB) {
+	db := data.NewPostgresRepository(conn)
+	app.Repo = db
 }
